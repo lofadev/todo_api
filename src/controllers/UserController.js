@@ -1,6 +1,7 @@
 import UserService from '../services/UserService.js';
 import { isEmail } from '../utils/index.js';
 import variable from '../variable.js';
+import { jwtDecode } from 'jwt-decode';
 
 const createUser = async (req, res) => {
   try {
@@ -40,8 +41,20 @@ const loginUser = async (req, res) => {
   }
 };
 
+const getMe = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwtDecode(token);
+    const response = await UserService.getMe(decoded.id);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json(variable.HAS_ERROR);
+  }
+};
+
 const UserController = {
   createUser,
   loginUser,
+  getMe,
 };
 export default UserController;

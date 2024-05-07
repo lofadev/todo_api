@@ -71,8 +71,26 @@ const loginUser = (payload) => {
   });
 };
 
+const getMe = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const user = await User.findById(id);
+      if (user) {
+        resolve({
+          status: 'OK',
+          message: 'Xem thông tin bản thân.',
+          data: user,
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const UserService = {
   createUser,
   loginUser,
+  getMe,
 };
 export default UserService;

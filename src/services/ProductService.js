@@ -51,6 +51,23 @@ const deleteProduct = (id) => {
   });
 };
 
+const deleteManyProduct = (ids) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const deletedProducts = await Product.deleteMany({ _id: ids });
+      if (deletedProducts) {
+        resolve({
+          status: 'OK',
+          message: 'Xoá sản phẩm thành công.',
+          data: deletedProducts,
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const getProduct = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -104,5 +121,6 @@ const ProductService = {
   deleteProduct,
   getProduct,
   getProducts,
+  deleteManyProduct,
 };
 export default ProductService;
