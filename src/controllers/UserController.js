@@ -52,9 +52,19 @@ const getMe = async (req, res) => {
   }
 };
 
+const getAll = async (req, res) => {
+  try {
+    const response = await UserService.getAll();
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json(variable.HAS_ERROR);
+  }
+};
+
 const UserController = {
   createUser,
   loginUser,
   getMe,
+  getAll,
 };
 export default UserController;

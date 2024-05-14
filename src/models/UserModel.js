@@ -10,6 +10,7 @@ const UserSchema = new mongoose.Schema(
     dob: { type: String, required: true },
     lastName: { type: String, required: true },
     firstName: { type: String, required: true },
+    avatar: { type: String, default: 'https://source.unsplash.com/random' },
   },
   { timestamps: true }
 );

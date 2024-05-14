@@ -88,9 +88,27 @@ const getMe = (id) => {
   });
 };
 
+const getAll = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const users = await User.find();
+      if (users.length) {
+        resolve({
+          status: 'OK',
+          message: 'Lấy danh sách users.',
+          data: users,
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 const UserService = {
   createUser,
   loginUser,
   getMe,
+  getAll,
 };
 export default UserService;
